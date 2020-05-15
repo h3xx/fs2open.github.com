@@ -15,6 +15,12 @@ mkdir -p build
 cd build
 
 if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+    if hash ccache 2>/dev/null; then
+        # Don't let ccache strip comments before sending to the compiler.
+        # Fixes an issue where GCC 9+ will FTBFS due to '-Werror=implicit-fallthrough'.
+        ccache --set-config=keep_comments_cpp=true
+    fi
+
     CXXFLAGS="-m64 -mtune=generic -mfpmath=sse -msse -msse2 -pipe -Wno-unknown-pragmas"
     CFLAGS="-m64 -mtune=generic -mfpmath=sse -msse -msse2 -pipe -Wno-unknown-pragmas"
 
