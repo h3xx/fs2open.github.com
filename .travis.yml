@@ -67,7 +67,10 @@ matrix:
   include:
     # note that gcc Debug MUST be 1st for Coverity
     - os: linux
-      env: CONFIGURATION="Debug" CC=gcc-5 CXX=g++-5
+    env:
+      - CONFIGURATION="Debug"
+      - CC=gcc-5
+      - CXX=g++-5
       addons:
         apt:
           sources:
@@ -77,7 +80,10 @@ matrix:
             - *global_deps
             - g++-5
     - os: linux
-      env: CONFIGURATION="Debug" CC=gcc-9 CXX=g++-9
+      env:
+        - CONFIGURATION="Debug"
+        - CC=gcc-9
+        - CXX=g++-9
       addons:
         apt:
           sources:
@@ -87,7 +93,11 @@ matrix:
             - g++-9
             - *global_deps
     - os: linux
-      env: CONFIGURATION="Debug" CC=clang-4.0 CXX=clang++-4.0 CMAKE_OPTIONS="-DCLANG_USE_LIBCXX=ON"
+      env:
+        - CONFIGURATION="Debug"
+        - CC=clang-4.0
+        - CXX=clang++-4.0
+        - CMAKE_OPTIONS="-DCLANG_USE_LIBCXX=ON"
       addons:
         apt:
           sources:
@@ -100,7 +110,11 @@ matrix:
             - libc++-dev
             - libc++abi-dev
     - os: linux
-      env: CONFIGURATION="Debug" CC=clang-9 CXX=clang++-9 CMAKE_OPTIONS="-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+      env:
+        - CONFIGURATION="Debug"
+        - CC=clang-9
+        - CXX=clang++-9
+        - CMAKE_OPTIONS="-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
       addons:
         apt:
           sources:
@@ -113,15 +127,25 @@ matrix:
         - ./ci/travis/script.sh
         - ./ci/travis/clang_tidy.sh
     - os: osx
-      env: CONFIGURATION="Debug"
+      env:
+        - CONFIGURATION="Debug"
 
     - os: windows
-      env: CONFIGURATION="Debug" CMAKE_TOOLSET=v141_xp CMAKE_GENERATOR="Visual Studio 15 2017"
+      env:
+        - CONFIGURATION="Debug"
+        - CMAKE_TOOLSET=v141_xp
+        - CMAKE_GENERATOR="Visual Studio 15 2017"
     - os: windows
-      env: CONFIGURATION="Debug" CMAKE_TOOLSET="" CMAKE_GENERATOR="Ninja"
+      env:
+        - CONFIGURATION="Debug"
+        - CMAKE_TOOLSET=""
+        - CMAKE_GENERATOR="Ninja"
 
     - os: linux
-      env: CONFIGURATION="Release" CC=gcc-5 CXX=g++-5
+      env:
+        - CONFIGURATION="Release"
+        - CC=gcc-5
+        - CXX=g++-5
       addons:
         apt:
           sources:
@@ -131,7 +155,10 @@ matrix:
             - *global_deps
             - g++-5
     - os: linux
-      env: CONFIGURATION="Release" CC=gcc-9 CXX=g++-9
+      env:
+        - CONFIGURATION="Release"
+        - CC=gcc-9
+        - CXX=g++-9
       addons:
         apt:
           sources:
@@ -141,7 +168,11 @@ matrix:
             - g++-9
             - *global_deps
     - os: linux
-      env: CONFIGURATION="Release" CC=clang-4.0 CXX=clang++-4.0 CMAKE_OPTIONS="-DCLANG_USE_LIBCXX=ON"
+      env:
+        - CONFIGURATION="Release"
+        - CC=clang-4.0
+        - CXX=clang++-4.0
+        - CMAKE_OPTIONS="-DCLANG_USE_LIBCXX=ON"
       addons:
         apt:
           sources:
@@ -154,7 +185,11 @@ matrix:
             - libc++-dev
             - libc++abi-dev
     - os: linux
-      env: CONFIGURATION="Release" CC=clang-9 CXX=clang++-9 CMAKE_OPTIONS="-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+      env:
+        - CONFIGURATION="Release"
+        - CC=clang-9
+        - CXX=clang++-9
+        - CMAKE_OPTIONS="-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
       addons:
         apt:
           sources:
@@ -167,18 +202,31 @@ matrix:
         - ./ci/travis/script.sh
         - ./ci/travis/clang_tidy.sh
     - os: osx
-      env: CONFIGURATION="Release"
+      env:
+        - CONFIGURATION="Release"
 
     - os: windows
-      env: CONFIGURATION="Release" CMAKE_TOOLSET=v141_xp CMAKE_GENERATOR="Visual Studio 15 2017"
+      env:
+        - CONFIGURATION="Release"
+        - CMAKE_TOOLSET=v141_xp
+        - CMAKE_GENERATOR="Visual Studio 15 2017"
     - os: windows
-      env: CONFIGURATION="Release" CMAKE_TOOLSET="" CMAKE_GENERATOR="Ninja"
+      env:
+        - CONFIGURATION="Release"
+        - CMAKE_TOOLSET=""
+        - CMAKE_GENERATOR="Ninja"
   # There is a GCC compiler bug with MinGW that causes compilation failures on Windows at the moment
   allow_failures:
     - os: windows
-      env: CONFIGURATION="Debug" CMAKE_TOOLSET="" CMAKE_GENERATOR="Ninja"
+      env:
+        - CONFIGURATION="Debug"
+        - CMAKE_TOOLSET=""
+        - CMAKE_GENERATOR="Ninja"
     - os: windows
-      env: CONFIGURATION="Release" CMAKE_TOOLSET="" CMAKE_GENERATOR="Ninja"
+      env:
+        - CONFIGURATION="Release"
+        - CMAKE_TOOLSET=""
+        - CMAKE_GENERATOR="Ninja"
   fast_finish: true
 
 before_install:
